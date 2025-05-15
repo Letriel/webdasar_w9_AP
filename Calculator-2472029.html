@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator - 2472029</title>
+    <style>
+        body {
+            padding: 0px;
+            margin-left: 10px;
+        }
+        .header {
+            font-weight: bold;
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <p class="header">Penjumlahan</p>
+        <p><button id="button_penjreset" onclick="button_nbilreset()">refresh</button></p>
+        <input type="text" id="penjbox1">
+        +
+        <input type="text" id="penjbox2">
+        =
+        <input type="text" id="penjhasil">
+        <button id="button_penjhasil" onclick="button_penjhasil()">Cek Hasil</button>
+        <p id="cek-hasil-penjumlahan"></p>
+        
+        <p class="header">Pengurangan</p>
+        <p><button id="button_pengreset" onclick="button_pengreset()">refresh</button></p>
+        <input type="text" id="pengbox1">
+        -
+        <input type="text" id="pengbox2">
+        =
+        <input type="text" id="penghasil">
+        <button id="button_penghasil" onclick="button_penghasil()">Cek Hasil</button>
+        <p id="cek-hasil-pengurangan">&nbsp;</p>
+
+        <p class="header">Nilai Bilangan</p>
+        <p><button id="button_nbilreset" onclick="button_nbilreset()">refresh</button></p>
+        <input type="text" id="nbilhasil">
+        =
+        <input type="text" id="nbilbox1">
+        +
+        <input type="text" id="nbilbox2">
+        +
+        <input type="number" id="nbilbox3">
+        <button id="button_nbilhasil" onclick="button_nbilhasil()">Cek Hasil</button>
+        <p id="cek-hasil-nilaibilangan">&nbsp;</p>
+    </div>
+    <script>
+        var penguranganbox1 = document.getElementById("pengbox1")
+        var penguranganbox2 = document.getElementById("pengbox2")
+        var penguranganhasil = document.getElementById("penghasil")
+
+        var nilaibilanganhasil = document.getElementById("nbilhasil")
+        var nilaibilanganbox1 = document.getElementById("nbilbox1")
+        var nilaibilanganbox2 = document.getElementById("nbilbox2")
+        var nilaibilanganbox3 = document.getElementById("nbilbox3")
+
+        function button_penjhasil() {
+            var penjumlahanbox1 = document.getElementById("penjbox1")
+            var penjumlahanbox2 = document.getElementById("penjbox2")
+            var penjumlahanhasil = document.getElementById("penjhasil")
+
+            penjumlahanbox1.textContent = penjumlahanhasil.value || penjumlahanbox2;
+            let hasilpenjumlahan =""
+            if ((penjumlahanbox1 + penjumlahanbox2) == penjumlahanhasil) {
+                hasilpenjumlahan = "BENAR"
+            } 
+            else {
+                hasilpenjumlahan = "SALAH"
+            }
+            document.getElementById("cek-hasil-penjumlahan").textContent = hasilpenjumlahan;
+        }
+
+    </script>
+</body>
+</html>
