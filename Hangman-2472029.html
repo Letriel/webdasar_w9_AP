@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hangman - 2472029</title>
+    <style>
+        body {
+            background-color: lightblue;
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+            height: 100%;
+        }
+
+        .game-container {
+            display: flex;
+            flex-direction: row;
+            align-items: flex-start;
+            margin-bottom: 20px;
+        }
+
+        .hangman-image {
+            width: 200px;
+            height: auto;
+            margin-right: 20px;
+        }
+
+        .right-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .word-display {
+            font-size: 24px;
+            letter-spacing: 10px;
+            margin-bottom: 20px;
+            color: black;
+            text-align: center;
+        }
+
+        .clue {
+            font-size: 16px;
+            margin-bottom: 20px;
+            color: #000000;
+            text-align: center;
+        }
+
+
+        button:hover {
+            background-color: silver;
+        }
+
+        #lives-display {
+            font-size: 20px;
+            margin-bottom: 20px;
+            color: #e74c3c;
+            text-align: center;
+        }
+
+        #result-display {
+            font-size: 20px;
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .win-message {
+            color: green;
+        }
+
+        .lose-message {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <div class="game-container">
+        <div class="left-section">
+            <img id="hangman-img" class="hangman-image" src="img/10.jpg" alt="Hangman">
+            <p id="lives-display">Lives: <span id="lives">10</span></p>
+        </div>
+        <div class="right-section">
+            <p id="word-display" class="word-display"></p>
+            <p id="clue-display" class="clue"></p>
+            <div class="input-container">
+                <input type="text" id="guess-input" size="1px">
+                <button id="check-button" onclick="checkAnswer()">Check</button>
+            </div>
+            <p id="result-display"></p>
+        </div>
+    </div>
+
+    <script>
+        var answers = ["PYTHON", "JAVASCRIPT", "TAILWIND", "REACT", "LARAVEL"];
+        var clues = [
+            "A versatile programming language named after a snake, loved for its simplicity.",
+            "The language that brings interactivity to websites, often abbreviated as JS.",
+            "A utility-first CSS framework for rapidly building custom designs.",
+            "A JavaScript library for building dynamic user interfaces, created by Facebook.",
+            "A PHP framework known for elegant syntax and robust web development tools.",
+        ];
+        var answer = "";
+        var answer_ = "";
+        var lives = 10;
+
+        window.onload = function() {
+            generate();
+        };
+
+        function generate() {
+            var randomIndex = Math.floor(Math.random() * answers.length);
+            answer = answers[randomIndex];
+            answer_ = "_".repeat(answer.length);
+
+            document.getElementById("word-display").textContent = answer_;
+            document.getElementById("clue-display").textContent = clues[randomIndex];
+            document.getElementById("lives").textContent = lives;
+            document.getElementById("hangman-img").src = "img/10.jpg";
+            document.getElementById("result-display").textContent = "";
+            document.getElementById("guess-input").value = "";
+            document.getElementById("check-button").disabled = false;
+            lives = 10;
+        }
+
+        function checkAnswer() {
+            var guessInput = document.getElementById("guess-input").value.toUpperCase();
+            var resultDisplay = document.getElementById("result-display");
+            var livesDisplay = document.getElementById("lives");
+
+            var found = false;
+            var newAnswer_ = "";
+            for (var i = 0; i < answer.length; i++) {
+                if (answer[i] === guessInput) {
+                    newAnswer_ += guessInput;
+                    found = true;
+                } else {
+                    newAnswer_ += answer_[i];
+                }
+            }
+
+            if (found) {
+                answer_ = newAnswer_;
+                document.getElementById("word-display").textContent = answer_;
+                checkWin();
+            } else {
+                lives--;
+                livesDisplay.textContent = lives;
+                document.getElementById("hangman-img").src = "img/" + lives + ".jpg";
+                if (lives === 0) {
+                    resultDisplay.textContent = "Anda Kalah!";
+                    resultDisplay.className = "lose-message";
+                    document.getElementById("check-button").disabled = true;
+                }
+            }
+
+            document.getElementById("guess-input").value = "";
+        }
+
+
+        function checkWin() {
+            if (!answer_.includes("_")) {
+                document.getElementById("result-display").textContent = "Anda Menang!";
+                document.getElementById("result-display").className = "win-message";
+                document.getElementById("check-button").disabled = true;
+            }
+        }
+    </script>
+</body>
+</html>

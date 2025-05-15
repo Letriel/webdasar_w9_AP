@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator - 2472029</title>
+    <style>
+        body {
+            padding: 0px;
+            margin-left: 10px;
+        }
+        .header {
+            font-weight: bold;
+            text-decoration: underline;
+        }
+        .calculation-section {
+            margin-bottom: 20px;
+        }
+        .nilai-bilangan-row {
+            display: flex;
+            align-items: center;
+        }
+        .nilai-bilangan-row {
+            width: 50px;
+            text-align: center;
+        }
+        .nilai-bilangan-row {
+            margin: 0 5px;
+        }
+        .nilai-bilangan-result {
+            color: black;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="calculation-section">
+            <p class="header">Penjumlahan</p>
+            <p><button id="button_penjreset" onclick="refreshPenjumlahan()">Refresh</button></p>
+            <input type="text" id="penjbox1">
+            <span>+</span>
+            <input type="text" id="penjbox2">
+            <span>=</span>
+            <input type="text" id="penjhasil">
+            <button id="button_penjhasil" onclick="cekHasilPenjumlahan()">Cek Hasil</button>
+            <p id="cek-hasil-penjumlahan"></p>
+        </div>
+
+        <div class="calculation-section">
+            <p class="header">Pengurangan</p>
+            <p><button id="button_pengreset" onclick="refreshPengurangan()">Refresh</button></p>
+            <input type="text" id="pengbox1">
+            <span>-</span>
+            <input type="text" id="pengbox2">
+            <span>=</span>
+            <input type="text" id="penghasil">
+            <button id="button_penghasil" onclick="cekHasilPengurangan()">Cek Hasil</button>
+            <p id="cek-hasil-pengurangan"></p>
+        </div>
+
+        <div class="calculation-section">
+            <p class="header">Nilai Bilangan</p>
+            <p><button id="button_nbilreset" onclick="refreshNilaiBilangan()">Refresh</button></p>
+            <div class="nilai-bilangan-row">
+                <input type="text" id="nbilhasil">
+                =
+                <input type="text" id="nbilbox1" placeholder="">
+                +
+                <input type="text" id="nbilbox2" placeholder="">
+                +
+                <input type="text" id="nbilbox3" placeholder="">
+                <button id="button_nbilhasil" onclick="cekHasilNilaiBilangan()">Cek Hasil</button>
+            </div>
+            <p id="cek-ratusan" class="nilai-bilangan-result"></p>
+            <p id="cek-puluhan" class="nilai-bilangan-result"></p>
+            <p id="cek-satuan" class="nilai-bilangan-result"></p>
+        </div>
+    </div>
+
+    <script>
+        var penjbox1 = document.getElementById("penjbox1");
+        var penjbox2 = document.getElementById("penjbox2");
+        var penjhasilInput = document.getElementById("penjhasil");
+        var cekHasilPenjumlahanText = document.getElementById("cek-hasil-penjumlahan");
+        var angkaPenjumlahan1;
+        var angkaPenjumlahan2;
+
+        function refreshPenjumlahan() {
+            angkaPenjumlahan1 = Math.floor(Math.random() * 1000);
+            angkaPenjumlahan2 = Math.floor(Math.random() * 1000);
+            penjbox1.value = angkaPenjumlahan1;
+            penjbox2.value = angkaPenjumlahan2;
+            penjhasilInput.value = "";
+            cekHasilPenjumlahanText.textContent = "";
+        }
+
+        function cekHasilPenjumlahan() {
+            if (penjhasilInput.value === "") {
+                cekHasilPenjumlahanText.textContent = "Tidak Ada Jawaban!!! Isi Terlebih Dahulu";
+            } else {
+                const jawabanUser = parseInt(penjhasilInput.value);
+                const hasilSebenarnya = angkaPenjumlahan1 + angkaPenjumlahan2;
+                if (jawabanUser === hasilSebenarnya) {
+                    cekHasilPenjumlahanText.textContent = "Jawaban Benar!!!";
+                } else {
+                    cekHasilPenjumlahanText.textContent = "Jawaban Salah!!!";
+                }
+            }
+        }
+
+        var pengbox1 = document.getElementById("pengbox1");
+        var pengbox2 = document.getElementById("pengbox2");
+        var penghasilInput = document.getElementById("penghasil");
+        var cekHasilPenguranganText = document.getElementById("cek-hasil-pengurangan");
+        var angkaPengurangan1;
+        var angkaPengurangan2;
+
+        function refreshPengurangan() {
+            angkaPengurangan1 = Math.floor(Math.random() * 1000);
+            angkaPengurangan2 = Math.floor(Math.random() * 1000);
+            while (angkaPengurangan1 < angkaPengurangan2) {
+                angkaPengurangan1 = Math.floor(Math.random() * 1000);
+                angkaPengurangan2 = Math.floor(Math.random() * 1000);
+            }
+            pengbox1.value = angkaPengurangan1;
+            pengbox2.value = angkaPengurangan2;
+            penghasilInput.value = "";
+            cekHasilPenguranganText.textContent = "";
+        }
+
+        function cekHasilPengurangan() {
+            if (penghasilInput.value === "") {
+                cekHasilPenguranganText.textContent = "Tidak Ada Jawaban!!! Isi Terlebih Dahulu";
+            } else {
+                const jawabanUser = parseInt(penghasilInput.value);
+                const hasilSebenarnya = angkaPengurangan1 - angkaPengurangan2;
+                if (jawabanUser === hasilSebenarnya) {
+                    cekHasilPenguranganText.textContent = "Jawaban Benar!!!";
+                } else {
+                    cekHasilPenguranganText.textContent = "Jawaban Salah!!!";
+                }
+            }
+        }
+
+        var nbilhasilInput = document.getElementById("nbilhasil");
+        var nbilbox1 = document.getElementById("nbilbox1");
+        var nbilbox2 = document.getElementById("nbilbox2");
+        var nbilbox3Input = document.getElementById("nbilbox3");
+        var cekRatusanText = document.getElementById("cek-ratusan");
+        var cekPuluhanText = document.getElementById("cek-puluhan");
+        var cekSatuanText = document.getElementById("cek-satuan");
+        var angkaNilaiBilangan;
+
+        function refreshNilaiBilangan() {
+            angkaNilaiBilangan = Math.floor(Math.random() * 900) + 100;
+            nbilhasilInput.value = angkaNilaiBilangan;
+            nbilbox1.value = "";
+            nbilbox2.value = "";
+            nbilbox3Input.value = "";
+            cekRatusanText.textContent = "";
+            cekPuluhanText.textContent = "";
+            cekSatuanText.textContent = "";
+        }
+
+        function cekHasilNilaiBilangan() {
+            
+            const jawabanRatusan = parseInt(nbilbox1.value);
+            const jawabanPuluhan = parseInt(nbilbox2.value);
+            const jawabanSatuan = parseInt(nbilbox3Input.value);
+
+            const ratusanSebenarnya = Math.floor(angkaNilaiBilangan / 100) * 100;
+            const puluhanSebenarnya = Math.floor((angkaNilaiBilangan % 100) / 10) * 10;
+            const satuanSebenarnya = angkaNilaiBilangan % 10;
+
+            cekRatusanText.innerHTML = "Jawaban Ratusan <span>" + (jawabanRatusan === ratusanSebenarnya ? "Benar!!!" : "Salah!!!") + "</span>";
+            cekPuluhanText.innerHTML = "Jawaban Puluhan <span>" + (jawabanPuluhan === puluhanSebenarnya ? "Benar!!!" : "Salah!!!") + "</span>";
+            cekSatuanText.innerHTML = "Jawaban Satuan <span>" + (jawabanSatuan === satuanSebenarnya ? "Benar!!!" : "Salah!!!") + "</span>";
+        }
+        
+    </script>
+</body>
+</html>
